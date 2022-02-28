@@ -1,4 +1,4 @@
-形態記得要轉成unit8
+形態記得要轉成uint8
 
 ```python
 # to gray
