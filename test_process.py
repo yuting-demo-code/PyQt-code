@@ -14,7 +14,9 @@ def run(cmd, shell=False):
     :param shell: 是否開啟shell
     :return: 子進程狀態碼和執行結果
     """
-    print('\************** START **************')
+    print(cmd)
+    print('************** START **************')
+    
     p = subprocess.Popen(cmd, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     result = []
     while p.poll() is None:
@@ -24,11 +26,11 @@ def run(cmd, shell=False):
             result.append(line)
             print(line)
         # 清空緩存
-        sys.stdout.flush()
-        sys.stderr.flush()
+        # sys.stdout.flush()
+        # sys.stderr.flush()
     # 判斷返回碼狀態
     if p.returncode == 0:
-        print('\************** SUCCESS **************')
+        print('************** SUCCESS **************')
     else:
         print('************** FAILED **************')
     return p.returncode, '\r\n'.join(result)
