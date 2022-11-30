@@ -1,6 +1,7 @@
 """
 author: lixk
-description: 本工具包用于执行子进程，实时获取子进程执行过程中输出的数据并打印到控制台，然后返回状态码和执行结果
+link: https://blog.csdn.net/u013314786/article/details/111059804
+description: 本工具包用於執行子進程，實時獲取子進程執行過程中輸出的數據並打印到控制台，然後返回狀態碼和執行結果
 """
 import subprocess
 import sys
@@ -8,12 +9,14 @@ import sys
 
 def run(cmd, shell=False):
     """
-    开启子进程，执行对应指令，控制台打印执行过程，然后返回子进程执行的状态码和执行返回的数据
-    :param cmd: 子进程命令
-    :param shell: 是否开启shell
-    :return: 子进程状态码和执行结果
+    開啟子進程，執行對應指令，控制台打印執行過程，然後返回子進程執行的狀態碼和執行返回的數據
+    :param cmd: 子進程命令
+    :param shell: 是否開啟shell
+    :return: 子進程狀態碼和執行結果
     """
-    print('\************** START **************')
+    print(cmd)
+    print('************** START **************')
+    
     p = subprocess.Popen(cmd, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     result = []
     while p.poll() is None:
@@ -22,12 +25,12 @@ def run(cmd, shell=False):
             line = _decode_data(line)
             result.append(line)
             print(line)
-        # 清空缓存
-        sys.stdout.flush()
-        sys.stderr.flush()
-    # 判断返回码状态
+        # 清空緩存
+        # sys.stdout.flush()
+        # sys.stderr.flush()
+    # 判斷返回碼狀態
     if p.returncode == 0:
-        print('\************** SUCCESS **************')
+        print('************** SUCCESS **************')
     else:
         print('************** FAILED **************')
     return p.returncode, '\r\n'.join(result)
@@ -35,9 +38,9 @@ def run(cmd, shell=False):
 
 def _decode_data(byte_data: bytes):
     """
-    解码数据
-    :param byte_data: 待解码数据
-    :return: 解码字符串
+    解碼數據
+    :param byte_data: 待解碼數據
+    :return: 解碼字符串
     """
     try:
         return byte_data.decode('utf-8')
@@ -47,4 +50,4 @@ def _decode_data(byte_data: bytes):
 
 if __name__ == '__main__':
     return_code, data = run('python process_function.py')
-    print('return code:', return_code, 'data:', data)
+    # print('return code:', return_code, 'data:', data)
